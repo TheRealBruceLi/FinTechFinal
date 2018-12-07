@@ -10,25 +10,44 @@ The loss functions used in both models was mean squared of the error. The neural
 The six inputs that we used to predict cryptocurrency prices are as follows: transaction volume, transaction count, market cap, exchange volume, number of active addresses, and median transaction value. 
 
 Neural Network:
+  
   Epoch 0:
+    
     Training Loss: 61827
+    
     Validating Loss: 32456
+  
   Epoch 7500:
+    
     Training Loss: 4394
+    
     Validating Loss: 2476
+  
   Epoch 15000:
+    
     Training Loss: 3057
+    
     Validating Loss: 1824
 
+
 Linear Regression:
+  
   Epoch 0:
+    
     Training Loss: 46233
+    
     Validating Loss: 46233
+  
   Epoch 7500:
+    
     Training Loss: 3204
+    
     Validating Loss: 3204
+  
   Epoch 15000:
+    
     Training Loss: 3204
+    
     Validating Loss: 3204
 
 Interpretation of Models:
@@ -42,3 +61,9 @@ Download code and data from github repository (to same directory)
 Run NN.py and LinReg.py for the respective models 
 
 
+Errors and Improvements:
+The current implementation suffers from a few flaws. One such flaw is with the distribution of the data. The current cryptocurrency price data, after normalization, contains most values close together around 0 but also contains very prominent outliers. These outliers are due to the massive spike in cryptocurrency prices at the end of 2017. Before normalizing the data, we should have taken the logs of the values to diminish the impact of the outliers. 
+
+Another issue that we needed to address was the fact that one of our inputs, market cap, was determined by the price of the cryptocurrency that we were trying to estimate. Market cap is calculated by multiplying the supply of the cryptocurrency with the price. Since some coins do not change the supply, the market cap in this case would be able to exactly predict price. Another input that also faced this challenge was the median transaction value. 
+
+Once we took out the market cap from the linear regression, the best indicator for the price was the number of active addresses. Since we believe that active address isn’t as tainted as market cap, we can conclude that active address could be an indicator of the price, especially since it was impactful to both the neural network and linear regression.
